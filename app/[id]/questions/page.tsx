@@ -30,16 +30,26 @@ const questions = [
     }];
 
 
-
-
 const Questions = ({ params }: { params: { id: string } }) => {
-    const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const nextQuestion = () => {
+        if (currentQuestionIndex + 1 == questions.length) {
+            submitTest();
+        } else {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        }
 
-    const submitAnswer = (question: any, answer: any) => {
-        // TODO
-        console.log(answer);
-        setCurrentQuestion(questions[1]);
     }
+    const submitAnswer = (question: any, answer: any) => {
+        console.log(answer);
+        nextQuestion();
+    }
+
+    const submitTest = () => {
+        // TODO: submit test
+        console.log("submitting test");
+    }
+
     return (
         <Container
             style={{
@@ -51,7 +61,7 @@ const Questions = ({ params }: { params: { id: string } }) => {
                 boxSizing: 'border-box',
             }}
         >
-            <Question question={currentQuestion} submitAnswer={submitAnswer} />
+            <Question question={questions[currentQuestionIndex]} submitAnswer={submitAnswer} />
         </Container>
     )
 }

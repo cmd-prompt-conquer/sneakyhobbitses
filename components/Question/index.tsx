@@ -16,7 +16,6 @@ interface QuestionProps {
     question: Question;
 }
 const Question: FC<QuestionProps> = ({ question, submitAnswer }) => {
-    
     const options = question.options.map((option, key) => (
         <Button
             mt={20}
