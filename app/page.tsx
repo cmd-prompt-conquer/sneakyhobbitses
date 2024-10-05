@@ -3,9 +3,12 @@ import { Container, Button, Box } from '@mantine/core';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Loader } from '@mantine/core';
+import { useTopics } from '@/hooks/useResources';
 
 export default function HomePage() {
   const router = useRouter();
+
+  const {topics, count, isLoading} = useTopics();
 
   useEffect(() => {
     const email = localStorage.getItem('email');
@@ -46,16 +49,19 @@ export default function HomePage() {
       }}
     >
       <Box ta="center" mx="auto" w={320}>
-        {items.map((team) => (
+        {topics?.map((topic) => (
           <Button
-            key={team.id}
+            key={topic.id}
             w="100%"
             h={60}
             mt="md"
             variant="gradient"
             gradient={{ from: 'magenta', to: 'red', deg: 45 }}
+            onClick={() => {
+              router.push(`/${topic.id}/questions`);
+            }}
           >
-            {team.name}
+            {topic.name}
           </Button>
         ))}
         <Button w="100%" h={60} mt="md" variant="outline" disabled>

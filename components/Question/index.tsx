@@ -1,20 +1,16 @@
 "use client"
 import React, { FC } from "react";
 import { Container, Button, Box, Text } from '@mantine/core';
-
-interface Question {
-    question: string,
-    options: string[],
-    correct: string
-}
+import { Question as QuestionModel } from "@/models";
 
 interface QuestionProps {
     submitAnswer: (
-        question: Question,
+        question: QuestionModel,
         answer: string,
     ) => void;
-    question: Question;
+    question: QuestionModel;
 }
+
 const Question: FC<QuestionProps> = ({ question, submitAnswer }) => {
     const options = question.options.map((option, key) => (
         <Button
