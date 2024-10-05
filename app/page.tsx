@@ -34,7 +34,7 @@ export default function HomePage() {
       id: 4,
       name: 'Fireside'
     },
-  ]
+  ];
 
   return (
     <Container
@@ -48,7 +48,7 @@ export default function HomePage() {
       }}
     >
       <Box ta="center" mx="auto" w={320}>
-      {items.map((team) => <Button key={team.id} w="100%" h={60} mt="md" variant="outline">{team.name}</Button>)}
+        {items.map((team) => <Button key={team.id} w="100%" h={60} mt="md" variant="outline">{team.name}</Button>)}
       </Box>
     </Container>
   );
