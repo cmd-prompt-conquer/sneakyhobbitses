@@ -6,7 +6,17 @@ import {
 } from "@mantine/core";
 
 const report =  {
-    content: ["some report content", "another report content"]
+    title: "TeamGTP Report",
+    content: [
+        {
+            title: "got no time",
+            description: "Some description"
+        },
+        {
+            title: "Some title 2",
+            description: "Some description"
+        }
+    ]
 }
 
 
@@ -23,9 +33,13 @@ const Report = ({ params }: { params: { id: string } }) => {
                 boxSizing: 'border-box',
             }}
         >
-            <Text>
-                {report.content[0]}
-            </Text>
+            {report.content.map((r) => (
+                <>
+                    <Text>{r.title}</Text>
+                    <br></br>
+                    <Text>{r.description}</Text>
+                </>
+            ))}
         </Container>
     )
 }
