@@ -58,19 +58,18 @@ const Questions = ({ params }: { params: { id: number } }) => {
         }
 
         try {
-            const data = new URLSearchParams({
-                email: localStorage.getItem('email') || "",
-                score: correctAnswers / questions.length * 100 + '',
-                topic_id: params.id + '',
-                answers: answersRef.current.toString(),
-            });
             const res = await fetch('/api/v1/report', {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json'
                 },
-                body: data.toString()
+                body: JSON.stringify({
+                    email: localStorage.getItem('email'),
+                    score: correctAnswers / questions.length * 100 + '',
+                    topic_id: params.id,
+                    answers: answersRef.current
+                })
             })
             if (!res.ok) {
                 throw new Error(`HTTP error! Status: ${res.status}`);
