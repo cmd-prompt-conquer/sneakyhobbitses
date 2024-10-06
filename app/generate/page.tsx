@@ -11,11 +11,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export const config = {
-    api: {
-      bodyParser: true,
-    },
-  };
 
 function Login() {
     const [email, setEmail] = useState('');
