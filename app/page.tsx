@@ -67,6 +67,15 @@ export default function HomePage() {
         <Button w="100%" h={60} mt="md" variant="outline" disabled>
           <Loader size={30} />
         </Button>
+        <Button
+          mt={20}
+          w="100%"
+          h={60}
+          onClick={() => { router.push('/leaderboard'); }}
+          color="#9F003E"
+        >
+          Leaderboard
+        </Button>
       </Box>
     </Container>
   );
