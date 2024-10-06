@@ -23,7 +23,7 @@ export const useTopicById = (id: number) => {
   >(`/api/v1/topics/${id}`, fetcher);
   return {
     questions: data?.questions,
-    count: data?.count,
+    topic: data?.topic,
     isLoading,
     isError: error,
   };

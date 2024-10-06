@@ -28,7 +28,7 @@ export interface TopicsResponse {
 // Structure for multiple questions
 export interface QuestionsResponse {
     questions: Question[];
-    count: number;
+    topic: Topic,
 }
 
 // Email score structure

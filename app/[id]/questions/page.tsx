@@ -17,7 +17,7 @@ import Leaderbord from "@/components/Leaderboard";
 
 const Questions = ({ params }: { params: { id: number } }) => {
     const router = useRouter();
-    const { questions, count } = useTopicById(params.id);
+    const { questions, topic } = useTopicById(params.id);
     const [answers, setAnswers] = useState<string[]>([]);
     const answersRef = useRef(answers);
     const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +26,7 @@ const Questions = ({ params }: { params: { id: number } }) => {
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const nextQuestion = () => {
-        if (currentQuestionIndex + 1 == count) {
+        if (currentQuestionIndex + 1 == questions?.length) {
             submitTest();
         } else {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -86,12 +86,14 @@ const Questions = ({ params }: { params: { id: number } }) => {
     const resultUI = (
         <Container>
             {result && <Score score={result.score} />}
-            {result && result.score >= 50 ? <Button
+            {result && result.score < 50 ? <Button
                 mt={20}
                 w="100%"
                 h={60}
                 onClick={() => { window.location.reload(); }}
                 variant='outline'
+                c='white'
+                color="#9F003E"
             >
                 Retake
             </Button> :
@@ -99,10 +101,12 @@ const Questions = ({ params }: { params: { id: number } }) => {
                 mt={20}
                 w="100%"
                 h={60}
-                onClick={() => { navigator.clipboard.writeText(reward) }}
+                onClick={() => { navigator.clipboard.writeText(topic?.reward || "") }}
                 variant='outline'
+                c='white'
+                color="#9F003E"
             >
-                {}
+                    {topic?.reward}
                 <Image src="/copy.svg" alt="copy" width={20} height={20} style={{
                     paddingLeft: "5px"
                 }} />
@@ -112,6 +116,7 @@ const Questions = ({ params }: { params: { id: number } }) => {
                 w="100%"
                 h={60}
                 onClick={() => { router.push('/'); }}
+                color="#9F003E"
             >
                 Home
             </Button>
