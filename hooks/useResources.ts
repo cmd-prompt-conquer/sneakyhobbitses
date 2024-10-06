@@ -34,7 +34,7 @@ export const useReport = () => {
     LeaderboardResponse
   >(`/api/v1/report`, fetcher);
   return {
-    test: data?.data,
+    report: data?.data,
     count: data?.count,
     isLoading,
     isError: error,
@@ -46,7 +46,7 @@ export const useReportById = (id: number) => {
     LeaderboardResponse
   >(`/api/v1/report/${id}`, fetcher);
   return {
-    test: data?.data,
+    report: data?.data,
     count: data?.count,
     isLoading,
     isError: error,

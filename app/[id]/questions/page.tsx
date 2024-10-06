@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import {
     Container,
 } from "@mantine/core";
 import Question from "@/components/Question";
 import { useTopicById } from "@/hooks/useResources";
+import { Question as QestionModel } from "@/models";
+import { useRouter } from "next/navigation";
 
 const questions = [
     {
@@ -32,7 +34,12 @@ const questions = [
 
 
 const Questions = ({ params }: { params: { id: number } }) => {
-    const { questions, count, isLoading } = useTopicById(params.id);
+    const router = useRouter();
+    const { questions, count } = useTopicById(params.id);
+    const [answers, setAnswers] = useState<string[]>([]);
+    const answersRef = useRef(answers); // Ref to hold the latest answers
+    const [isLoading, setIsLoading] = useState(false);
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const nextQuestion = () => {
         if (currentQuestionIndex + 1 == count) {
@@ -42,14 +49,54 @@ const Questions = ({ params }: { params: { id: number } }) => {
         }
     }
 
-    const submitAnswer = (question: any, answer: any) => {
-        console.log(answer);
-        nextQuestion();
+    const submitAnswer = (question: QestionModel, answer: string) => {
+        setAnswers((prevAnswers) => {
+            setIsLoading(true);
+            const updatedAnswers = [...prevAnswers];
+            updatedAnswers[currentQuestionIndex] = answer;
+            answersRef.current = updatedAnswers;
+            setIsLoading(false);
+            nextQuestion();
+            return updatedAnswers;
+        });
     }
 
-    const submitTest = () => {
-        // TODO: submit test
-        console.log("submitting test");
+    const submitTest = async () => {
+        if (questions == undefined) {
+            return;
+        }
+        setIsLoading(true);
+        let correctAnswers = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (questions[i].answer == answersRef.current[i]) {
+                correctAnswers++;
+            }
+        }
+        console.log(correctAnswers);
+        try {
+            const data = new URLSearchParams({
+                email: 'nikolay.slavkov96@gmail.com',
+                score: correctAnswers / questions.length * 100 + '',
+                topic_id: params.id + '',
+            });
+            const res = await fetch('/api/v1/report', {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data.toString()
+            })
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+
+            const jsonResponse = await res.json();
+        } catch (err) {
+            console.error('Error:', err);
+        }
+        setIsLoading(false);
+        router.push(`/${params.id}/result`);
     }
 
     return (
@@ -64,7 +111,7 @@ const Questions = ({ params }: { params: { id: number } }) => {
             }}
         >
             {(questions && questions?.length > 0)
-            && <Question question={questions[currentQuestionIndex]} submitAnswer={submitAnswer} />}
+            && <Question question={questions[currentQuestionIndex]} submitAnswer={submitAnswer} isLoading={isLoading} />}
         </Container>
     )
 }

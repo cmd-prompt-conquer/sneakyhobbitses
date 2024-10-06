@@ -1,8 +1,10 @@
 "use client";
 
+import { useReportById } from "@/hooks/useResources";
 import {
     Container,
-    Text
+    Text,
+    Box
 } from "@mantine/core";
 
 const result = {
@@ -10,8 +12,8 @@ const result = {
 
 }
 
-
-const Result = ({ params }: { params: { id: string } }) => {
+const Result = ({ params }: { params: { id: number } }) => {
+    const { report } = useReportById(params.id);
     return (
         <Container
             style={{
@@ -23,9 +25,12 @@ const Result = ({ params }: { params: { id: string } }) => {
                 boxSizing: 'border-box',
             }}
         >
-            <Text>
-                Score: {result.score}%
-            </Text>
+
+            {report?.map((r, key) => (
+                <Box key={key}>
+                    <Text>{r.email} - {r.score}pts</Text>
+                </Box>
+            ))}
         </Container>
     )
 }
