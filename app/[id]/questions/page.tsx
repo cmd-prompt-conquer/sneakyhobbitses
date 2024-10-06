@@ -59,7 +59,7 @@ const Questions = ({ params }: { params: { id: number } }) => {
 
         try {
             const data = new URLSearchParams({
-                email: 'nikolay.slavkov96@gmail.com',
+                email: localStorage.getItem('email') || "",
                 score: correctAnswers / questions.length * 100 + '',
                 topic_id: params.id + '',
                 answers: answersRef.current.toString(),
