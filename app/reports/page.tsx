@@ -23,9 +23,10 @@ function ReportPage() {
                 boxSizing: 'border-box',
             }}
         >
-            <Container w={320}>
+            <Container>
                 <Box h="calc(100vh - 300px)" style={{
-                    overflowY: "auto"
+                    overflowY: "auto",
+                    overflowX: "hidden"
                 }}>
                     {topicReports && topicReports.map((tr, key) => (
                         <TopicReport key={key} teamName={tr.team_name} mostCorrectlyAnswered={tr.top} mostWronglyAnswered={tr.bottom} />
