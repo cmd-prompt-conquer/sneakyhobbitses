@@ -22,7 +22,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN AUTH_SECRET=NdgjUxHEdYqTHc/fy4PJrKwxMr+SaH6Rvf4JdcSEJmo= npm run build
+RUN npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -54,4 +54,4 @@ ENV PORT 3000
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD AUTH_SECRET=NdgjUxHEdYqTHc/fy4PJrKwxMr+SaH6Rvf4JdcSEJmo= AUTH_TRUST_HOST=true HOSTNAME="0.0.0.0" node server.js
+CMD AUTH_TRUST_HOST=true HOSTNAME="0.0.0.0" node server.js
