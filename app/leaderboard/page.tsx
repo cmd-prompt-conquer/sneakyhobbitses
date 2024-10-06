@@ -29,7 +29,7 @@ function LeaderboardPage() {
                 </Box>
                 <Button
                     mt={20}
-                    w="100%"
+                    w="320px"
                     h={60}
                     onClick={() => { router.push('/'); }}
                     color="#9F003E"
