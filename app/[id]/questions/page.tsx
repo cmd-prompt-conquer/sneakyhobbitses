@@ -84,7 +84,10 @@ const Questions = ({ params }: { params: { id: number } }) => {
     }
 
     const resultUI = (
-        <Container>
+        <Container style={{
+            maxWidth: "320px",
+            padding: "0px"
+        }}>
             {result && <Score score={result.score} />}
             {result && result.score < 50 ? <Button
                 mt={20}
