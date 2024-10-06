@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { LeaderboardResponse, QuestionsResponse, TopicReport, TopicReportsResponse, TopicsResponse } from "@/models";
+import { LeaderboardResponse, QuestionsResponse, TopicReport, TopicsResponse } from "@/models";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
