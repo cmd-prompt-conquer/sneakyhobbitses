@@ -1,7 +1,7 @@
 "use client";
 
 import TopicReport from "@/components/TopicReport";
-import { useReport } from "@/hooks/useResources";
+import { useTopicReports } from "@/hooks/useResources";
 import {
     Container,
     Button,
@@ -10,7 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 
 function ReportPage() {
-    // const { report } = useReport();
+    const { topicReports, isLoading } = useTopicReports();
     const router = useRouter();
     return (
         <Container
@@ -27,9 +27,9 @@ function ReportPage() {
                 <Box h="calc(100vh - 300px)" style={{
                     overflowY: "auto"
                 }}>
-                    <TopicReport teamName={"Test team"} mostCorrectlyAnswered={"asdasd asdasd"} mostWronglyAnswered={"asdasd asd asd"} />
-                    <TopicReport teamName={"Test team"} mostCorrectlyAnswered={"asdasd asdasd"} mostWronglyAnswered={"asdasd asd asd"} />
-                    <TopicReport teamName={"Test team"} mostCorrectlyAnswered={"asdasd asdasd"} mostWronglyAnswered={"asdasd asd asd"} />
+                    {topicReports && topicReports.map((tr, key) => (
+                        <TopicReport key={key} teamName={tr.team_name} mostCorrectlyAnswered={tr.top} mostWronglyAnswered={tr.bottom} />
+                    ))}
                 </Box>
                 <Button
                     mt={20}

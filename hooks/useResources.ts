@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { LeaderboardResponse, QuestionsResponse, TopicReportsResponse, TopicsResponse } from "@/models";
+import { LeaderboardResponse, QuestionsResponse, TopicReport, TopicReportsResponse, TopicsResponse } from "@/models";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -56,10 +56,10 @@ export const useReportById = (id: number) => {
 
 export const useTopicReports = () => {
   const { data, error, isLoading } = useSWR<
-    TopicReportsResponse
-  >(`/api/v1/report`, fetcher);
+    TopicReport[]
+    >(`/api/v1/topics/stats2/1`, fetcher);
   return {
-    topicReports: data?.data,
+    topicReports: data,
     isLoading,
     isError: error,
   };

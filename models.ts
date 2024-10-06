@@ -50,11 +50,7 @@ export interface ResultResponse {
 }
 
 export interface TopicReport {
+    top: string;
+    bottom: string;
     team_name: string;
-    most_correctly_answered: string;
-    most_wrongly_answered: string;
-}
-
-export interface TopicReportsResponse {
-    data: TopicReport[];
 }
