@@ -17,37 +17,9 @@ export default function HomePage() {
     }
   }, [router]);
 
-  const items = [
-    {
-      id: 1,
-      name: 'TeamGPT',
-    },
-    {
-      id: 2,
-      name: 'Viktor @ Iris.ai',
-    },
-    {
-      id: 3,
-      name: 'Deyan @ Appolica',
-    },
-    {
-      id: 4,
-      name: 'Fireside',
-    },
-  ];
 
   return (
-    <Container
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'white',
-        height: '100vh',
-        padding: '20px',
-        boxSizing: 'border-box',
-      }}
-    >
+    <Container>
       <Box ta="center" mx="auto" w={320}>
         {topics?.map((topic) => (
           <Button
