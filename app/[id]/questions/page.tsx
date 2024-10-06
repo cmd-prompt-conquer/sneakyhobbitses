@@ -4,41 +4,25 @@ import { useState, useRef } from "react";
 
 import {
     Container,
+    Image,
+    Button
 } from "@mantine/core";
 import Question from "@/components/Question";
-import { useTopicById } from "@/hooks/useResources";
-import { Question as QestionModel } from "@/models";
+import { useTopicById, useReportById } from "@/hooks/useResources";
+import { Question as QestionModel, ResultResponse } from "@/models";
 import { useRouter } from "next/navigation";
-
-const questions = [
-    {
-        question: "When did Mark start selling websites?",
-        options: [
-            "at Twitter",
-            "post-mortem",
-            "in Yosemite",
-            "as a teen"
-        ],
-        correct: "as a teen",
-    },
-    {
-        question: "Why does Mark like tech founders more?",
-        options: [
-            "more gritty",
-            "smarter",
-            "more beautiful",
-            "more independent"
-        ],
-        correct: "more beautiful",
-    }];
+import Score from "@/components/Score";
+import Leaderbord from "@/components/Leaderboard";
 
 
 const Questions = ({ params }: { params: { id: number } }) => {
     const router = useRouter();
     const { questions, count } = useTopicById(params.id);
     const [answers, setAnswers] = useState<string[]>([]);
-    const answersRef = useRef(answers); // Ref to hold the latest answers
+    const answersRef = useRef(answers);
     const [isLoading, setIsLoading] = useState(false);
+    const [result, setResult] = useState<ResultResponse | null>(null);
+    const { report } = useReportById(params.id);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const nextQuestion = () => {
@@ -72,7 +56,7 @@ const Questions = ({ params }: { params: { id: number } }) => {
                 correctAnswers++;
             }
         }
-        console.log(correctAnswers);
+
         try {
             const data = new URLSearchParams({
                 email: 'nikolay.slavkov96@gmail.com',
@@ -91,14 +75,49 @@ const Questions = ({ params }: { params: { id: number } }) => {
                 throw new Error(`HTTP error! Status: ${res.status}`);
             }
 
-            const jsonResponse = await res.json();
+            const jsonResponse: ResultResponse = await res.json();
+            setResult(jsonResponse);
         } catch (err) {
             console.error('Error:', err);
         }
         setIsLoading(false);
-        router.push(`/${params.id}/result`);
     }
 
+    const resultUI = (
+        <Container>
+            {result && <Score score={result.score} />}
+            {result && result.score >= 50 ? <Button
+                mt={20}
+                w="100%"
+                h={60}
+                onClick={() => { window.location.reload(); }}
+                variant='outline'
+            >
+                Retake
+            </Button> :
+            <Button
+                mt={20}
+                w="100%"
+                h={60}
+                onClick={() => { navigator.clipboard.writeText(reward) }}
+                variant='outline'
+            >
+                {}
+                <Image src="/copy.svg" alt="copy" width={20} height={20} style={{
+                    paddingLeft: "5px"
+                }} />
+            </Button>}
+            <Button
+                mt={20}
+                w="100%"
+                h={60}
+                onClick={() => { router.push('/'); }}
+            >
+                Home
+            </Button>
+            {report && <Leaderbord leaderboard={report} />}
+        </Container>
+    )
     return (
         <Container
             style={{
@@ -110,10 +129,9 @@ const Questions = ({ params }: { params: { id: number } }) => {
                 boxSizing: 'border-box',
             }}
         >
-            {(questions && questions?.length > 0)
-            && <Question question={questions[currentQuestionIndex]} submitAnswer={submitAnswer} isLoading={isLoading} />}
-
-            
+            {( result == null && questions && questions?.length > 0)
+            && <Question question={questions[currentQuestionIndex]} submitAnswer={submitAnswer} isLoading={isLoading} />} 
+            {result && resultUI}
         </Container>
     )
 }

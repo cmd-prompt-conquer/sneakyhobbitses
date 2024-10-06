@@ -42,3 +42,10 @@ export interface LeaderboardResponse {
     data: EmailScore[];
     count: number;
 }
+
+
+export interface ResultResponse {
+    topic_id: number;
+    score: number;
+    email: string;
+}

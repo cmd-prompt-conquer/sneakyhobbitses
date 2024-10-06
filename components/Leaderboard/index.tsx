@@ -10,7 +10,7 @@ interface LeaderboardProps {
 const Leaderbord: FC<LeaderboardProps> = ({ leaderboard }) => {
     return (
         <Box>
-            <Title>Leaderbord</Title>
+            <Title>Leaderboard</Title>
             <hr/>
             { leaderboard?.map((r, key) => (
                 <Box key={key}>

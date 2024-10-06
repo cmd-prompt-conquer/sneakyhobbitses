@@ -11,14 +11,14 @@ const Score: FC<ScoreProps> = ({ score }) => {
         return (
             <Box>
                 <Title>Super! You scored</Title>
-                <Title>{score}</Title>
+                <Title>{score}%</Title>
             </Box>
         );
     }
     return (
         <Box>
             <Title>You scored</Title>
-            <Title>{score}</Title>
+            <Title>{score}%</Title>
         </Box>
     );
         
