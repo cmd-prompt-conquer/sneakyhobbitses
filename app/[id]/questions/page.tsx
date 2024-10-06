@@ -62,6 +62,7 @@ const Questions = ({ params }: { params: { id: number } }) => {
                 email: 'nikolay.slavkov96@gmail.com',
                 score: correctAnswers / questions.length * 100 + '',
                 topic_id: params.id + '',
+                answers: answersRef.current.toString(),
             });
             const res = await fetch('/api/v1/report', {
                 method: "POST",
