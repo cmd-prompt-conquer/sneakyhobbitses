@@ -1,10 +1,11 @@
 "use client";
 
+import Leaderbord from "@/components/Leaderboard";
+import Score from "@/components/Score";
 import { useReportById } from "@/hooks/useResources";
 import {
     Container,
-    Text,
-    Box
+    Title
 } from "@mantine/core";
 
 const result = {
@@ -25,12 +26,9 @@ const Result = ({ params }: { params: { id: number } }) => {
                 boxSizing: 'border-box',
             }}
         >
-
-            {report?.map((r, key) => (
-                <Box key={key}>
-                    <Text>{r.email} - {r.score}pts</Text>
-                </Box>
-            ))}
+            <Score score={69}/>
+            <Title>Leaderbord</Title>
+            {report && <Leaderbord leaderboard={report} /> }
         </Container>
     )
 }
