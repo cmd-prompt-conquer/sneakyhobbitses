@@ -2,7 +2,6 @@ import "@mantine/core/styles.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "@/theme";
-import Header from "@/components/Header";
 
 export const metadata = {
   title: "SneakyHobbitses",
@@ -22,7 +21,6 @@ export default function RootLayout({ children }: { children: any }) {
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
-          {/* <Header /> */}
             {children}
         </MantineProvider>
       </body>
