@@ -43,9 +43,18 @@ export interface LeaderboardResponse {
     count: number;
 }
 
-
 export interface ResultResponse {
     topic_id: number;
     score: number;
     email: string;
+}
+
+export interface TopicReport {
+    team_name: string;
+    most_correctly_answered: string;
+    most_wrongly_answered: string;
+}
+
+export interface TopicReportsResponse {
+    data: TopicReport[];
 }
