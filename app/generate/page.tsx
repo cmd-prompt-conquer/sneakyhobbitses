@@ -11,6 +11,12 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+export const config = {
+    api: {
+      bodyParser: true,
+    },
+  };
+
 function Login() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -24,7 +30,7 @@ function Login() {
         const options = {
             'email': email,
             'name': name,
-            'desc': desc,
+            'description': desc,
             'reward': reward,
         }
         formData.append('options', JSON.stringify(options));
