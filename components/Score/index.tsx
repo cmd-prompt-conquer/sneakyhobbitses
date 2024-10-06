@@ -9,16 +9,16 @@ interface ScoreProps {
 const Score: FC<ScoreProps> = ({ score }) => {
     if (score >= 50) {
         return (
-            <Box>
-                <Title c='#2EFF9A'>Super! You scored</Title>
-                <Title c='#2EFF9A'>{score}%</Title>
+            <Box w={320}>
+                <Title fz={50} c='#2EFF9A'>Super! You scored</Title>
+                <Title fz={60} c='#2EFF9A'>{score}%</Title>
             </Box>
         );
     }
     return (
-        <Box>
-            <Title c='#9F003E'>You scored</Title>
-            <Title c='#9F003E'>{score}%</Title>
+        <Box w={320}>
+            <Title fz={50} c='#9F003E'>You scored</Title>
+            <Title fz={60} c='#9F003E'>{score}%</Title>
         </Box>
     );
         

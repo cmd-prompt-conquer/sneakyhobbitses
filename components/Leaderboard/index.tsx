@@ -21,7 +21,7 @@ const obfuscareEmail = (email: string) => {
 
 const Leaderbord: FC<LeaderboardProps> = ({ leaderboard }) => {
     return (
-        <Box mt={40}>
+        <Box mt={40} w={320}>
             <Title fz="lg" ta="center" c="#9F003E">Leaderboard</Title>
             <hr color="#9F003E"/>
             <Table withRowBorders={false} verticalSpacing={4} mt={15}>

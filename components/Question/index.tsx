@@ -44,7 +44,7 @@ const Question: FC<QuestionProps> = ({ question, submitAnswer, isLoading }) => {
             <Loader/>
             :
             <Box ta="center" mx="auto" w={320}>
-                <Title size={48} lh="1" ta="left" mb={20} c='#9F003E' mb={100}>{question.question}</Title>
+                <Title size={48} lh="1" ta="left" mb={100} c='#9F003E'>{question.question}</Title>
                 {options}
             </Box>}
         </Container>
